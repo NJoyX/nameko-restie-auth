@@ -66,7 +66,7 @@ class OAuth2AuthorizeHandler(OAuth2BaseExceptionEntrypoint):
                 uri, http_method, body, headers
             )
             scopes, credentials = ret
-            _oauth2 = namedtuple('oauth2', ['scopes'] + credentials.keys())(scopes, **credentials)
+            _oauth2 = namedtuple('oauth2', ['scopes'] + credentials.keys())(scopes, **credentials.values())
 
         request.oauth2 = _oauth2
         return request
