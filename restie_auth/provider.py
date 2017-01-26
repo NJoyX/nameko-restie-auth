@@ -1,6 +1,6 @@
 from functools import partial
 
-from nameko.extensions import DependencyProvider
+from nameko.dependency_providers import Config
 from nameko.rpc import ServiceProxy, ReplyListener
 from restie.base import ServiceDependencyProvider
 
@@ -49,6 +49,4 @@ class AuthManager(ServiceDependencyProvider):
         return self.make_dependency(**services)
 
 
-class ConfigProvider(DependencyProvider):
-    def get_dependency(self, worker_ctx):
-        return self.container.config
+ConfigProvider = Config
