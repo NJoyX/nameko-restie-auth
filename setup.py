@@ -17,7 +17,7 @@ setup(
     ],
     dependency_links=["https://github.com/NJoyX/nameko-restie.git#egg=nameko-restie"],
     include_package_data=True,
-    zip_safe=True,
+    zip_safe=False,
     keywords=['nameko', 'restie', 'rest', 'werkzeug', 'oauth', 'oauth2', 'authentication', 'auth'],
     classifiers=[
         "Operating System :: MacOS :: MacOS X",
