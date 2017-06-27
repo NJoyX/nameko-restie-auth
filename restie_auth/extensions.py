@@ -62,7 +62,7 @@ class Authorization(AuthProvider):
 
 
 class Authentication(AuthProvider):
-    login_validator = lambda self, *args, **kwargs: False
+    login_validator = (lambda self, *args, **kwargs: False)
 
     def __init__(self, collector, ignore_errors=False):
         super(Authentication, self).__init__(collector)

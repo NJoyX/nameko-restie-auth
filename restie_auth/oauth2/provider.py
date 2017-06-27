@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, absolute_import, print_function
 
-from functools import partial, wraps
+from functools import partial
 from inspect import isclass
 
 from oauthlib.oauth2 import Server
@@ -60,12 +60,12 @@ class OAuth2Provider(object):
 
             validator = self.oauth_validator(
                 service=self.service,
-                clientgetter=self._clientgetter,
-                tokengetter=self._tokengetter,
-                grantgetter=self._grantgetter,
+                clientgetter=getattr(self, '_clientgetter'),
+                tokengetter=getattr(self, '_tokengetter'),
+                grantgetter=getattr(self, '_grantgetter'),
                 usergetter=usergetter,
-                tokensetter=self._tokensetter,
-                grantsetter=self._grantsetter,
+                tokensetter=getattr(self, '_tokensetter'),
+                grantsetter=getattr(self, '_grantsetter')
             )
             setattr(self, validator_key, validator)
             return Server(
@@ -91,20 +91,20 @@ class OAuth2Provider(object):
     grantgetter = partialmethod(_set_local_f, '_grantgetter')
     grantsetter = partialmethod(_set_local_f, '_grantsetter')
 
-    authorize_handler = lambda self, *args, **kwargs: partial(
+    authorize_handler = (lambda self, *args, **kwargs: partial(
         OAuth2AuthorizeHandler.decorator,
         provider=self
-    )(*args, **kwargs)
+    )(*args, **kwargs))
 
-    token_handler = lambda self, *args, **kwargs: partial(
+    token_handler = (lambda self, *args, **kwargs: partial(
         OAuth2TokenHandler.decorator,
         provider=self
-    )(*args, **kwargs)
+    )(*args, **kwargs))
 
-    revoke_handler = lambda self, *args, **kwargs: partial(
+    revoke_handler = (lambda self, *args, **kwargs: partial(
         OAuth2RevokeHandler.decorator,
         provider=self
-    )(*args, **kwargs)
+    )(*args, **kwargs))
 
     def confirm_authorization_request(self, request):
         scope = request.values.get('scope') or ''

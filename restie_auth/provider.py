@@ -15,15 +15,15 @@ class AuthManager(ServiceDependencyProvider):
     rpc_reply_listener = ReplyListener()
     collector = AuthCollector()
 
-    authorization_required = lambda self, *args, **kwargs: partial(
+    authorization_required = (lambda self, *args, **kwargs: partial(
         Authorization.decorator,
         collector=self.collector
-    )(*args, **kwargs)
+    )(*args, **kwargs))
 
-    login_required = lambda self, *args, **kwargs: partial(
+    login_required = (lambda self, *args, **kwargs: partial(
         Authentication.decorator,
         collector=self.collector
-    )(*args, **kwargs)
+    )(*args, **kwargs))
 
     login_validator = Authentication.login_validator_handler
     session_store = Authentication.session_store_handler

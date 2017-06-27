@@ -168,7 +168,7 @@ class OAuth2RequestValidator(RequestValidator):
             # log.debug(msg)
             return False
 
-        if datetime.datetime.utcnow() > tok.expires:
+        if tok.expires is not None and datetime.datetime.utcnow() > tok.expires:
             msg = 'Bearer token is expired.'
             request.error_message = msg
             # log.debug(msg)

@@ -9,7 +9,7 @@ from werkzeug.wrappers import Response
 
 from restie.utils import CONSTANTS
 
-get_constant = lambda const, default=None: getattr(CONSTANTS, const, default)
+get_constant = (lambda const, default=None: getattr(CONSTANTS, const, default))
 
 
 def get_secret_key(default=None):
